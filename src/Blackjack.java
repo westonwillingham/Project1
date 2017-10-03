@@ -161,10 +161,10 @@ public class Blackjack {
     }
 
 
-     static void Menu(){                    // the code refers to this method throughout 
+     static void Menu(){                    // the code refers to this method throughout
         System.out.println("1. Get another card");
         System.out.println("2. Hold hand");
-        System.out.println("3. Print statistics");
+        System.out.println("3. Print game statistics");
         System.out.println("4. Exit ");
         System.out.println("");
         System.out.println("Choose an option:  ");
