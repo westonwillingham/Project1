@@ -21,15 +21,26 @@ public class Blackjack {
         int numDealerWins = 0;
         double winPercentage;                                                    // variables to determine the game totals
 
-        do{                                                        // this is one do while loop
+        while (option != 4){                                                        // this is one do while loop
             if (userHandValue > 0) {                               // it will continue to run unless the user option == 4
-                Menu();                                            // prints the Menu (external method located at bottom)
+                System.out.println("1. Get another card");
+                System.out.println("2. Hold hand");
+                System.out.println("3. Print game statistics");
+                System.out.println("4. Exit ");
+                System.out.println("");
+                System.out.println("Choose an option:  ");
+
                 try {                                              // this tries to run the scanner and catches any value that doesn't fit the INTEGER criteria
                     option= scnr.nextInt();
                 }
                 catch (InputMismatchException Error) {             // catches exceptions and says to input a valid integer between 1 and 4
                     System.out.println("Invalid input!\nPlease enter an integer value between 1 and 4.\n");
-                        Menu();                                    // this prints the menu again after they put in an invalid option
+                    System.out.println("1. Get another card");
+                    System.out.println("2. Hold hand");
+                    System.out.println("3. Print game statistics");
+                    System.out.println("4. Exit ");
+                    System.out.println("");
+                    System.out.println("Choose an option:  ");                                    // this prints the menu again after they put in an invalid option
                     scnr.nextLine();                               // this looks for a new value to run
                 }
             }                                                      // this try/catch will keep CYCLING until a proper value for int option is input
@@ -42,41 +53,43 @@ public class Blackjack {
 
                         if (randomCard >= 2 && randomCard <= 10) {
                             cardValue = randomCard;
-                            cardDescription = "a " + Integer.toString(randomCard);
+                            cardDescription = "a " + Integer.toString(randomCard) +"!";
                             if (randomCard == 8) {
-                                cardDescription = "an 8";      // eight starts with a vowel so its AN 8
+                                cardDescription = "an 8!";      // eight starts with a vowel so its AN 8
                             }
                             else if (randomCard == 1) {                                  // 13 is the bound for randomCard, and it wont ever be 13+1 = 14
                                 cardValue = randomCard;
-                                cardDescription = "an ACE";    // ace starts with a vowel so its AN ACE
+                                cardDescription = "an ACE!";    // ace starts with a vowel so its AN ACE
                             }
                         } else if (randomCard > 10 && randomCard <= 13) {
                             cardValue = 10;                                 // this makes the cardVALUE = 10 and the descriptions of the cards different
                             if (randomCard == 11) {
-                                cardDescription = "a JACK";                 // randomcard and carddescription are different because the cardvalue will be added throughout runs of the looop
+                                cardDescription = "a JACK!";                 // randomcard and carddescription are different because the cardvalue will be added throughout runs of the looop
                             }
                             else if (randomCard == 12) {
-                                cardDescription = "a QUEEN";
+                                cardDescription = "a QUEEN!";
                             }
                             else if (randomCard == 13) {
-                                cardDescription = "a KING";
+                                cardDescription = "a KING!";
                             }
                         }
                         userHandValue += cardValue;
-                        System.out.println("Your card is " + cardDescription + "!");
+                        System.out.println("Your card is " + cardDescription);
                         System.out.println("Your hand is: " + userHandValue + "\n");
                         if (userHandValue == 21) {
                             System.out.println("BLACKJACK! You win! \n");
-                            numUserWins += 1;
+                            numUserWins ++;
                             userHandValue = 0;
-                            gameNumber += 1;
+                            gameNumber ++;
                             break;
                         }
                         else if (userHandValue > 21) {
                             System.out.println("You exceeded 21! You lose :( \n ");
-                            numDealerWins += 1;
+                            gameNumber ++;
                             userHandValue = 0;
-                            gameNumber += 1;
+                            numDealerWins ++;
+
+
                             break;
                         }
 
@@ -88,9 +101,9 @@ public class Blackjack {
                             System.out.println("Dealer's hand: " + dealerHand);
                             System.out.println("Your hand is: " + userHandValue + "\n");
                             System.out.println("You win! \n");
-                            numUserWins += 1;
+                            numUserWins ++;
                             option = 1;
-                            gameNumber += 1;
+                            gameNumber ++;
                             userHandValue = 0;
                             break;
                         }
@@ -99,9 +112,9 @@ public class Blackjack {
                             System.out.println("Dealer's hand: " + dealerHand);
                             System.out.println("Your hand is: " + userHandValue + "\n");
                             System.out.println("Dealer wins! \n");
-                            numDealerWins += 1;
+                            numDealerWins ++ ;
                             option = 1;
-                            gameNumber += 1;
+                            gameNumber ++;
                             userHandValue = 0;
                             break;
                         }
@@ -111,8 +124,8 @@ public class Blackjack {
                             System.out.println("Your hand is: " + userHandValue + "\n");
                             System.out.println("It's a tie! No one wins! \n");
                             userHandValue = 0;
-                            numTies += 1;
-                            gameNumber += 1;
+                            numTies ++;
+                            gameNumber ++;
                             option = 1;
                             break;
                         }
@@ -122,8 +135,8 @@ public class Blackjack {
                             System.out.println("Your hand is: " + userHandValue + "\n");
                             System.out.println("You win! \n");
                             userHandValue = 0;
-                            numUserWins += 1;
-                            gameNumber += 1;
+                            numUserWins ++;
+                            gameNumber ++;
                             option = 1;
                             break;
                         }
@@ -134,11 +147,10 @@ public class Blackjack {
                         System.out.println("Number of Dealer wins: " + numDealerWins);
                         System.out.println("Number of tie games: " + numTies);
                         System.out.println("Total # of games played is: " + (gameNumber - 1));
-                        winPercentage = (numUserWins / (double) (numDealerWins + numTies + numUserWins )) * 100;
+                        winPercentage = ((double) numUserWins / (numDealerWins + numTies + numUserWins )) * 100;
                         if ((double) (numDealerWins + numTies + numUserWins ) ==0) {
                             winPercentage = 0;
                         }
-
                         NumberFormat formatter = new DecimalFormat("##0.0");
                         System.out.println("Percentage of Player wins: " + formatter.format(winPercentage) + "% \n");
 
@@ -156,20 +168,10 @@ public class Blackjack {
 
                 }
 
-        }while(option != 4);
+        }
 
     }
 
-
-     static void Menu(){                    // the code refers to this method throughout
-        System.out.println("1. Get another card");
-        System.out.println("2. Hold hand");
-        System.out.println("3. Print game statistics");
-        System.out.println("4. Exit ");
-        System.out.println("");
-        System.out.println("Choose an option:  ");
-        return;
-    }
 
 
 }
